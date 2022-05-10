@@ -11,6 +11,7 @@ using FPTBook.Models;
 using Microsoft.AspNetCore.Identity;
 using FPTBook.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace FPTBook.Controllers
 {
@@ -20,20 +21,15 @@ namespace FPTBook.Controllers
         private readonly int _recordsPerPage = 20;
         private readonly int _recordsPerPages = 20;
         private readonly UserManager<FPTBookUser> _userManager;
-
-        public BooksController(FPTBookContext context, UserManager<FPTBookUser> userManager)
+        private readonly IEmailSender _emailSender;
+        public BooksController(FPTBookContext context, UserManager<FPTBookUser> userManager, IEmailSender emailSender)
         {
             _context = context;
             _userManager = userManager;
+            _emailSender = emailSender;
         }
 
-        // GET: Books
-        //public async Task<IActionResult> Index()
-        //{
-        //    var userContext = _context.Book.Include(b => b.Store);
-        //    return View(await userContext.ToListAsync());
-        //}
-       
+
         public async Task<IActionResult> List(int id, string searchString)
         {
             var books1 = from b in _context.Book
@@ -59,7 +55,7 @@ namespace FPTBook.Controllers
             string thisUserId = _userManager.GetUserId(HttpContext.User);
             Cart myCart = new Cart() { UId = thisUserId, BookIsbn = isbn, Quantity = 1 };
             Cart fromDb = _context.Cart.FirstOrDefault(c => c.UId == thisUserId && c.BookIsbn == isbn);
-            //if not existing (or null), add it to cart. If already added to Cart before, ignore it.
+           
             if (fromDb != null)
             {
                 fromDb.Quantity++;
@@ -73,7 +69,12 @@ namespace FPTBook.Controllers
             }
             return RedirectToAction("List");
         }
-       
+        public async Task<IActionResult> Email()
+        {
+            await _emailSender.SendEmailAsync("quangvan1210200120@gmail.com", "Order Success", "Your order has been successfully placed!");
+            return RedirectToAction("Index", "Carts");
+        }
+
         public async Task<IActionResult> Checkout()
         {
             string thisUserId = _userManager.GetUserId(HttpContext.User);
@@ -118,7 +119,7 @@ namespace FPTBook.Controllers
                     Console.WriteLine("Error occurred in Checkout" + ex);
                 }
             }
-            return RedirectToAction("Index", "Carts");
+            return RedirectToAction("Email");
         }
         [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Index(int id, string searchString)
