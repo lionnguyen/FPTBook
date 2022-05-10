@@ -41,7 +41,7 @@ namespace FPTBook.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                books1 = books1.Where(s => s.Title!.Contains(searchString) || s.Category.Contains(searchString));
+                books1 = books1.Where(s => s.Title!.Contains(searchString) || s.Category.Contains(searchString) || s.Author.Contains(searchString));
             }
             int numberOfRecords = await books1.CountAsync();     //Count SQL
             int numberOfPages = (int)Math.Ceiling((double)numberOfRecords / _recordsPerPages);
@@ -53,6 +53,7 @@ namespace FPTBook.Controllers
                 .ToListAsync();
             return View(books);
         }
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> AddToCart(string isbn)
         {
             string thisUserId = _userManager.GetUserId(HttpContext.User);
@@ -72,7 +73,7 @@ namespace FPTBook.Controllers
             }
             return RedirectToAction("List");
         }
-        [Authorize(Roles = "Customer")]
+       
         public async Task<IActionResult> Checkout()
         {
             string thisUserId = _userManager.GetUserId(HttpContext.User);

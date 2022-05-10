@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Giỏ hàng của bạn</h1>
+<h1>Shopping Cart</h1>
 
 @if (Model.Count() > 0)
 {
@@ -57,7 +57,9 @@
                         @(Math.Round((item.Quantity) * (item.Book.Price),1))
                     </td>
                     <td>
-                        <a asp-action="Remove" asp-route-isbn="@item.BookIsbn" class="btn btn-primary">Remove</a>
+                        <a asp-action="Remove" asp-route-isbn="@item.BookIsbn" class="btn btn-primary">Remove
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
             }
@@ -71,7 +73,9 @@
             </tr>
         </tbody>
     </table>
-    <a asp-controller="Books" class="btn btn-primary" asp-action="Checkout">Checkout</a>
+    <a asp-controller="Books" class="btn btn-primary" asp-action="Checkout">Checkout
+        <i class="fa-solid fa-circle-check"></i>
+    </a>
 }
 else
 {

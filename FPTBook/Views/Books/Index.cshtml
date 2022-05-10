@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Manager Books</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,9 +12,8 @@
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
-            Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
-            <a asp-action="Index">Back to Full List</a>
+             <input style="width:500px; height: 40px; border-radius:10px" type="text" name="SearchString" placeholder="Enter Author or Title or Category to find"  value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" style=" border: 1px solid #0d6efd; color: #fff; background-color: #0d6efd; " />
         </p>
     </div>
 </form>
@@ -74,9 +73,20 @@
             </td>
         
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Isbn">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Isbn">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Isbn">Delete</a>
+
+                <a asp-action="Edit" style="text-decoration:none;" asp-route-id="@item.Isbn">Edit
+                    <i class="fas fa-edit"></i>
+                </a> 
+
+                <a asp-action="Details"  style="text-decoration:none;" asp-route-id="@item.Isbn">
+                    Details
+                    <i class="fa-solid fa-info"></i>
+                </a> 
+
+                <a asp-action="Delete"  style="text-decoration:none;" asp-route-id="@item.Isbn">
+                    Delete
+                    <i class="fas fa-trash"></i>
+                </a>
             </td>
         </tr>
 }

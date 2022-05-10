@@ -25,7 +25,6 @@
                 @Html.DisplayNameFor(model => model.Order.Total)
             </th>
            
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -46,9 +45,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Order.Total)
             </td>
-            <td>
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+
         </tr>
 }
     </tbody>

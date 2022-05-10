@@ -7,12 +7,16 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FPTBook.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/regular.min.css">
+    <link rel="stylesheet" href="~/lib/font-awesome/css/solid.min.css">
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <header >
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 " >
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Books" asp-action="List">FPTBook</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Books" asp-action="List" style="font-weight:bold;">FPTBook</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -35,7 +39,9 @@
                         @if (User.IsInRole("Customer"))
                         {                        
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Carts" asp-action="Index">Cart</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Carts" asp-action="Index">Cart 
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Index">Order History</a>
@@ -55,8 +61,8 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - FPTBook - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container" style="display:flex;justify-content:center;align-items:center">
+            &copy; 2022 - FPTBook 
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
