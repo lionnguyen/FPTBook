@@ -20,7 +20,8 @@
                       <img src="@Model[i].ImgUrl" class="card-img-top" alt="...">
                       <div class="card-body">
                           <h5 class="card-title">@Model[i].Title</h5>     
-                           <h6 class="card-title">@Model[i].Author</h6>    
+                           <h6 class="card-title">@Model[i].Author</h6>  
+                           <span class="card-title">Category:@Model[i].Category</span> <br>  
                             <span class="card-title">Price: $
                                 @Model[i].Price</span>  <br>  
                            <a asp-action="Details" asp-route-id="@Model[i].Isbn" class="btn  button-green">Details <i class="fa-solid fa-info"></i></a>
