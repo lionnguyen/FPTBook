@@ -70,11 +70,7 @@ namespace FPTBook.Controllers
             }
             return RedirectToAction("List");
         }
-        //public async Task<IActionResult> Email()
-        //{
-        //    await _emailSender.SendEmailAsync("lionnguyen2509@gmail.com", "Order Success", "Your order has been successfully placed!");
-        //    return RedirectToAction("Index", "Carts");
-        //}
+
 
         public async Task<IActionResult> Checkout()
         {
