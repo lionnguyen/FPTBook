@@ -14,6 +14,8 @@ namespace FPTBook.Models
         public string Desc { get; set; }
         public string? ImgUrl { get; set; }
         public int StoreId { get; set; }
+        public DateTime? createDate { get; set; }
+
         public Store? Store { get; set; }
         public virtual ICollection<OrderDetail>? OrderDetails { get; set; }
         public virtual ICollection<Cart>? Carts { get; set; }

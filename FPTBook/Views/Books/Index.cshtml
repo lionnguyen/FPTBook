@@ -38,6 +38,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Desc)
             </th>
+             <th>
+               @Html.DisplayNameFor(model => model.createDate)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ImgUrl)
             </th>
@@ -67,6 +70,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Desc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.createDate)
             </td>
             <td>
                 <img src = " @Html.DisplayFor(modelItem => item.ImgUrl)" />

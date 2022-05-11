@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using FPTBook.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace FPTBook.Controllers
 {
@@ -121,7 +122,7 @@ namespace FPTBook.Controllers
             return RedirectToAction("Index", "Carts");
         }
         [Authorize(Roles = "Seller")]
-        public async Task<IActionResult> Index(int id, string searchString)
+        public async Task<IActionResult> Index(int id, string searchString, string sortOrder)
         {
             FPTBookUser thisUser = await _userManager.GetUserAsync(HttpContext.User);
             Store thisStore = await _context.Store.FirstOrDefaultAsync(s => s.UId == thisUser.Id);
@@ -132,6 +133,9 @@ namespace FPTBook.Controllers
             {
                 books1 = books1.Where(s => s.Title!.Contains(searchString));
             }
+            books1 = books1.OrderByDescending(s => s.createDate);
+
+
             int numberOfRecords = await books1.CountAsync();     //Count SQL
             int numberOfPages = (int)Math.Ceiling((double)numberOfRecords / _recordsPerPage);
             ViewBag.numberOfPages = numberOfPages;
@@ -170,17 +174,20 @@ namespace FPTBook.Controllers
             return View();
         }
 
+      
+
         // POST: Books/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "Seller")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormFile image, [Bind("Isbn,Title,Pages,Author,Category,Price,Desc,ImgUrl")] Book book)
+        public async Task<IActionResult> Create(IFormFile image, [Bind("Isbn,Title,Pages,Author,Category,Price,Desc,ImgUrl,createDate")] Book book)
         {
+          
+
             if (image != null)
             {
-                //set key name
                 string ImageName = book.Isbn + Path.GetExtension(image.FileName);
 
                 string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Image", ImageName);
@@ -189,6 +196,7 @@ namespace FPTBook.Controllers
                     image.CopyTo(stream);
                 }
                 book.ImgUrl = "Image/" + ImageName;
+                book.createDate= DateTime.Now;
                 FPTBookUser thisUser = await _userManager.GetUserAsync(HttpContext.User);
                 Store thisStore = await _context.Store.FirstOrDefaultAsync(s => s.UId == thisUser.Id);
                 book.StoreId = thisStore.Id;
