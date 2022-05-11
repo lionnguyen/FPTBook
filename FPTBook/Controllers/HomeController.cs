@@ -14,14 +14,13 @@ namespace FPTBook.Controllers
     {
         private readonly FPTBookContext _context;
         private readonly ILogger<HomeController> _logger;
-        private readonly IEmailSender _emailSender;
+
         private readonly UserManager<FPTBookUser> _userManager;
         private readonly int _recordsPerPage = 20;
-        public HomeController(ILogger<HomeController> logger, IEmailSender emailSender, UserManager<FPTBookUser> userManager, FPTBookContext context)
+        public HomeController(ILogger<HomeController> logger,UserManager<FPTBookUser> userManager, FPTBookContext context)
         {
             _context = context;
             _logger = logger;
-            _emailSender = emailSender;
             _userManager = userManager;
         }
         public IActionResult Index()

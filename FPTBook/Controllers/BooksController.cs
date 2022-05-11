@@ -142,10 +142,7 @@ namespace FPTBook.Controllers
                 .ToListAsync();
             return View(books);
         }
-       
-       
-
-
+      
         // GET: Books/Details/5
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
