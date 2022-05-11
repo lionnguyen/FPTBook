@@ -69,11 +69,11 @@ namespace FPTBook.Controllers
             }
             return RedirectToAction("List");
         }
-        public async Task<IActionResult> Email()
-        {
-            await _emailSender.SendEmailAsync("quangvan1210200120@gmail.com", "Order Success", "Your order has been successfully placed!");
-            return RedirectToAction("Index", "Carts");
-        }
+        //public async Task<IActionResult> Email()
+        //{
+        //    await _emailSender.SendEmailAsync("lionnguyen2509@gmail.com", "Order Success", "Your order has been successfully placed!");
+        //    return RedirectToAction("Index", "Carts");
+        //}
 
         public async Task<IActionResult> Checkout()
         {
@@ -86,7 +86,7 @@ namespace FPTBook.Controllers
             {
                 try
                 {
-                    //Step 1: create an order
+
                     Order myOrder = new Order();
                     myOrder.UId = thisUserId;
                     myOrder.OrderDate = DateTime.Now;
@@ -94,7 +94,6 @@ namespace FPTBook.Controllers
                         .Aggregate((c1, c2) => Math.Round((c1 + c2), 1));
                     _context.Add(myOrder);
                     await _context.SaveChangesAsync();
-                    //Step 2: insert all order details by var "myDetailsInCart"
                     
                     foreach (var item in myDetailsInCart)
                     {
@@ -108,7 +107,7 @@ namespace FPTBook.Controllers
                     }
                     await _context.SaveChangesAsync();
 
-                    //Step 3: empty/delete the cart we just done for thisUser
+
                     _context.Cart.RemoveRange(myDetailsInCart);
                     await _context.SaveChangesAsync();
                     transaction.Commit();
@@ -119,15 +118,15 @@ namespace FPTBook.Controllers
                     Console.WriteLine("Error occurred in Checkout" + ex);
                 }
             }
-            return RedirectToAction("Email");
+            return RedirectToAction("Index", "Carts");
         }
         [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Index(int id, string searchString)
         {
             FPTBookUser thisUser = await _userManager.GetUserAsync(HttpContext.User);
             Store thisStore = await _context.Store.FirstOrDefaultAsync(s => s.UId == thisUser.Id);
-            // chia sach
-            var books1 = from b in _context.Book.Where(b => b.StoreId == thisStore.Id)
+            var userContext = _context.Book.Where(b => b.StoreId == thisStore.Id).Include(b => b.Store);
+            var books1 = from b in userContext
                          select b;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -144,7 +143,11 @@ namespace FPTBook.Controllers
             return View(books);
         }
        
+       
+
+
         // GET: Books/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)

@@ -93,7 +93,7 @@ namespace FPTBook.Areas.Identity.Pages.Account
             [Display(Name = "Your Role")]
             public string Role { get; set; }
             [Required]
-            [Display(Name = "Your Address")]
+            [Display(Name = "Address")]
             public string Address { get; set; }
 
             /// <summary>

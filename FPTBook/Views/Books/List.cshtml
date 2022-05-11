@@ -7,7 +7,7 @@
     <div class="form-actions no-color">
         <p>
              <input style="width:500px; height: 40px; border-radius:10px" type="text" name="SearchString" placeholder="Enter Author or Title or Category to find"  value="@ViewData["CurrentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" style=" border: 1px solid #0d6efd; color: #fff; background-color: #0d6efd; " />
+            <input type="submit" value="Search" class="btn button-green" style=" border: 1px solid; " />
         </p>
     </div>
 </form>
@@ -23,8 +23,8 @@
                            <h6 class="card-title">@Model[i].Author</h6>    
                             <span class="card-title">Price: $
                                 @Model[i].Price</span>  <br>  
-                           <a asp-action="Details" asp-route-id="@Model[i].Isbn" class="btn btn-primary">Details <i class="fa-solid fa-info"></i></a>
-                          <a asp-action="AddToCart" asp-route-isbn="@Model[i].Isbn" class="btn btn-primary">Add Cart <i class="fa-solid fa-cart-shopping"></i></a>
+                           <a asp-action="Details" asp-route-id="@Model[i].Isbn" class="btn  button-green">Details <i class="fa-solid fa-info"></i></a>
+                          <a asp-action="AddToCart" asp-route-isbn="@Model[i].Isbn" class="btn  button-green ">Add Cart <i class="fa-solid fa-cart-shopping"></i></a>
                       </div>
                   </div>
               </div>
@@ -49,3 +49,10 @@
     </nav>
 </div>
 
+<style>
+    .button-green{
+        color: #fff;
+    background-color: #4daf54;
+    border-color: #4daf54;
+    }
+</style>

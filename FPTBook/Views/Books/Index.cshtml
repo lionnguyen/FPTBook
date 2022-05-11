@@ -13,7 +13,7 @@
     <div class="form-actions no-color">
         <p>
              <input style="width:500px; height: 40px; border-radius:10px" type="text" name="SearchString" placeholder="Enter Author or Title or Category to find"  value="@ViewData["CurrentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" style=" border: 1px solid #0d6efd; color: #fff; background-color: #0d6efd; " />
+            <input type="submit" value="Search" class="btn btn-seacrh" style=" border: 1px solid;" />
         </p>
     </div>
 </form>
@@ -74,18 +74,15 @@
         
             <td>
 
-                <a asp-action="Edit" style="text-decoration:none;" asp-route-id="@item.Isbn">Edit
-                    <i class="fas fa-edit"></i>
+                <a asp-action="Edit"  class="button-green" asp-route-id="@item.Isbn">Edit<i class="fas fa-edit"></i>
                 </a> 
 
-                <a asp-action="Details"  style="text-decoration:none;" asp-route-id="@item.Isbn">
-                    Details
-                    <i class="fa-solid fa-info"></i>
+                <a asp-action="Details" class="button-green" s asp-route-id="@item.Isbn">
+                    Details<i class="fa-solid fa-info"></i>
                 </a> 
 
-                <a asp-action="Delete"  style="text-decoration:none;" asp-route-id="@item.Isbn">
-                    Delete
-                    <i class="fas fa-trash"></i>
+                <a asp-action="Delete"  class="button-green"  asp-route-id="@item.Isbn">
+                    Delete<i class="fas fa-trash"></i>
                 </a>
             </td>
         </tr>
@@ -105,3 +102,19 @@
           </ul>
       </nav>
   </div>
+  <style>
+    .button-green{
+        text-decoration:none;
+        color: #4daf54;
+    }
+
+    .button-green:hover{
+        color: #4daf54;
+    }
+
+    .btn-seacrh{
+        color: #fff;
+    background-color: #4daf54;
+    border-color: #4daf54;
+    }
+</style>

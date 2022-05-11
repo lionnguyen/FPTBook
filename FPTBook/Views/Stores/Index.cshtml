@@ -43,13 +43,13 @@
                 @Html.DisplayFor(modelItem => item.User.Id)
             </td>
             <td>
-                <a asp-action="Edit"  style="text-decoration:none;"  asp-route-id="@item.Id">Edit
+                <a asp-action="Edit" class="button-green"   asp-route-id="@item.Id">Edit
                     <i class="fas fa-edit"></i
                 </a> |
-                <a asp-action="Details"  style="text-decoration:none;" asp-route-id="@item.Id">Details
+                <a asp-action="Details" class="button-green" asp-route-id="@item.Id">Details
                     <i class="fa-solid fa-info"></i>
                 </a> |
-                <a asp-action="Delete"  style="text-decoration:none;" asp-route-id="@item.Id">Delete
+                <a asp-action="Delete"  class="button-green"   asp-route-id="@item.Id">Delete
                     <i class="fas fa-trash"></i>
                 </a>
             </td>
@@ -57,3 +57,16 @@
 }
     </tbody>
 </table>
+
+
+<style>
+       
+    .button-green{
+        text-decoration:none;
+        color: #4daf54;
+    }
+
+    .button-green:hover{
+        color: #4daf54;
+    }
+</style>

@@ -49,15 +49,15 @@
                         @Html.DisplayFor(modelItem => item.Book.Price)
                     </td>
                     <td>
-                        <a asp-action="removeItem" asp-route-isbn="@item.BookIsbn" class="btn btn-primary">-</a>
+                        <a asp-action="removeItem" asp-route-isbn="@item.BookIsbn" class="btn button-green"><i class="fa-solid fa-minus"></i></a>
                         @Html.DisplayFor(modelItem => item.Quantity)
-                        <a asp-action="UpdateCart" asp-route-isbn="@item.BookIsbn" class="btn btn-primary">+</a>
+                        <a asp-action="UpdateCart" asp-route-isbn="@item.BookIsbn" class="btn button-green"><i class="fa-solid fa-plus"></i></a>
                     </td>
                     <td>
                         @(Math.Round((item.Quantity) * (item.Book.Price),1))
                     </td>
                     <td>
-                        <a asp-action="Remove" asp-route-isbn="@item.BookIsbn" class="btn btn-primary">Remove
+                        <a asp-action="Remove" asp-route-isbn="@item.BookIsbn" class="btn button-green">Remove
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>
@@ -73,7 +73,7 @@
             </tr>
         </tbody>
     </table>
-    <a asp-controller="Books" class="btn btn-primary" asp-action="Checkout">Checkout
+    <a asp-controller="Books" class="btn button-green" asp-action="Checkout">Checkout
         <i class="fa-solid fa-circle-check"></i>
     </a>
 }
@@ -81,3 +81,10 @@ else
 {
     <p class="alert alert-warning">Cart empty</p>
 }
+<style>
+    .button-green{
+        color: #fff;
+    background-color: #4daf54;
+    border-color: #4daf54;
+    }
+</style>
