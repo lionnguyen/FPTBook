@@ -136,9 +136,9 @@ namespace FPTBook.Controllers
             {
                 books1 = books1.Where(s => s.Title!.Contains(searchString));
             }
+
+
             books1 = books1.OrderByDescending(s => s.createDate);
-
-
             int numberOfRecords = await books1.CountAsync();     //Count SQL
             int numberOfPages = (int)Math.Ceiling((double)numberOfRecords / _recordsPerPage);
             ViewBag.numberOfPages = numberOfPages;
