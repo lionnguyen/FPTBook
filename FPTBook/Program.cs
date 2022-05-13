@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using FPTBook.Data;
 using FPTBook.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using FPTBook.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<FPTBookContext>(options =>
@@ -12,12 +13,21 @@ builder.Services.AddDbContext<FPTBookContext>(options =>
 builder.Services.AddDefaultIdentity<FPTBookUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<FPTBookContext>(); ;
-   
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 var config = builder.Configuration;
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.Configure<EmailSenderOptions>(options =>
+{
+    options.Host = config["MailSettings:Host"];
+    options.Port = int.Parse(config["MailSettings:Port"]);
+    options.User = config["MailSettings:User"];
+    options.Pass = config["MailSettings:Pass"];
+    options.Name = config["MailSettings:Name"];
+    options.Sender = config["MailSettings:User"];
+});
 
 
 var app = builder.Build();

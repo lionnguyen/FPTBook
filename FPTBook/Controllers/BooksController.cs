@@ -50,6 +50,13 @@ namespace FPTBook.Controllers
                 .ToListAsync();
             return View(books);
         }
+        public async Task<IActionResult> Email()
+        {
+            FPTBookUser thisUser = await _userManager.GetUserAsync(HttpContext.User);
+            await _emailSender.SendEmailAsync(thisUser.Email, "Order Success!", "Your order has been successfully placed");
+            return RedirectToAction("Index", "Carts");
+        }
+
         [Authorize(Roles = "Customer")]
         public async Task<IActionResult> AddToCart(string isbn)
         {
@@ -115,7 +122,7 @@ namespace FPTBook.Controllers
                     Console.WriteLine("Error occurred in Checkout" + ex);
                 }
             }
-            return RedirectToAction("Index", "Carts");
+            return RedirectToAction("Email");
         }
         [Authorize(Roles = "Seller")]
         public async Task<IActionResult> Index(int id, string searchString, string sortOrder)
